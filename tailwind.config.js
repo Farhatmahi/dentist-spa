@@ -21,6 +21,7 @@ module.exports = {
         "banner-bg": "url('/src/assets/images/bg.png')",
         appointment: "url('/src/assets/images/appointment.png')",
         contact: "url('/src/assets/images/appointment.png')",
+        footer: "url('/src/assets/images/footer.png')",
       },
       fontFamily: {
         "Open-sans": ["Open Sans", "sans-serif"],
