@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="footer grid-cols-1 lg:grid-cols-3 bg-footer mt-20 p-20">
+    <div className="bg-footer">
+      <footer className="footer grid-cols-1 lg:grid-cols-3 mt-20 p-20">
       <div>
         <span className="footer-title">Company</span>
         <Link className="link link-hover">About us</Link>
@@ -25,6 +26,9 @@ const Footer = () => {
         <Link className="link link-hover">Github</Link>
       </div>
     </footer>
+    <hr />
+    <p className="text-neutral text-center py-2">Copyright © Farhat Mahi</p>
+    </div>
   );
 };
 
