@@ -15,7 +15,7 @@ const AppointmentOption = ({ appointmentOption, setTreatment }) => {
             disabled={slots.length === 0}
             onClick={() => setTreatment(appointmentOption)}
             htmlFor="booking-modal"
-            className={`btn btn-primary ${slots.length > 0 ? "bg-gradient-to-r from-primary to-secondary text-white" : "bg-accent"}`}
+            className={`btn btn-primary ${slots.length > 0 ? "transition-all duration-500 bg-gradient-to-r from-primary via-secondary to-primary bg-size-200 bg-pos-0 hover:bg-pos-100 text-white" : "bg-accent"} `}
           >
             Book Appointment
           </label>
