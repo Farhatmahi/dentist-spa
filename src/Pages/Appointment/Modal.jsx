@@ -1,16 +1,31 @@
 import React from "react";
 import { format } from "date-fns";
 
-const Modal = ({ treatment, selectedDate }) => {
+const Modal = ({ treatment, setTreatment, selectedDate }) => {
+    const date = format(selectedDate, "PP")
   const { name, slots } = treatment;
   const handleBooking = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const form = e.target;
     const slot = form.slot.value;
-    const name = form.name.value;
+    const fullname = form.fullname.value;
     const phone = form.phone.value;
-    const email = form.email.value
-  }
+    const email = form.email.value;
+
+    const booking = {
+      appointmentDate: date,
+      treatment : name,
+      slot,
+      fullname,
+      phone,
+      email,
+    };
+    console.log(booking)
+    //to do : send data to the server, and once data is saved, then close the modal and display toast
+    setTreatment(null); //the modal will auto off when the treatment is set to null.
+
+
+  };
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -23,21 +38,26 @@ const Modal = ({ treatment, selectedDate }) => {
             ✕
           </label>
           <h3 className="text-lg font-bold">{name}</h3>
-          <form onSubmit={handleBooking} className="mt-10 grid grid-cols-1 gap-3">
+          <form
+            onSubmit={handleBooking}
+            className="mt-10 grid grid-cols-1 gap-3"
+          >
             <input
               type="text"
-              value={format(selectedDate, "PP")}
+              value={date}
               className="input input-bordered w-full"
               disabled
             />
-            <select className="select select-bordered w-full">
-              {
-                slots.map(slot => <option name="slot" value={slot}>{slot}</option>)
-              }
+            <select name="slot" className="select select-bordered w-full">
+              {slots.map(slot => (
+                <option  value={slot}>
+                  {slot}
+                </option>
+              ))}
             </select>
             <input
               type="text"
-              name="name"
+              name="fullname"
               placeholder="Full name"
               className="input input-bordered w-full"
               required

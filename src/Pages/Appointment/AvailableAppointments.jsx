@@ -24,10 +24,16 @@ const AvailableAppointments = ({ selectedDate, setSelectedDate }) => {
           <AppointmentOption
             key={appointmentOption._id}
             appointmentOption={appointmentOption}
-            setTreatment = {setTreatment}
+            setTreatment={setTreatment}
           />
         ))}
-        {treatment && <Modal treatment={treatment} selectedDate={selectedDate} />}
+        {treatment && (
+          <Modal
+            treatment={treatment}
+            selectedDate={selectedDate}
+            setTreatment={setTreatment}
+          />
+        )}
       </div>
     </section>
   );
