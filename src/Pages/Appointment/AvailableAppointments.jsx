@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import AppointmentOption from "./AppointmentOption";
+import Modal from "./Modal";
 
 const AvailableAppointments = ({ selectedDate, setSelectedDate }) => {
   const [appointmentOptions, setAppointmentOptions] = useState([]);
+  const [treatment, setTreatment] = useState(null);
+
   useEffect(() => {
     fetch("availableOptions.json")
       .then((res) => res.json())
@@ -21,8 +24,10 @@ const AvailableAppointments = ({ selectedDate, setSelectedDate }) => {
           <AppointmentOption
             key={appointmentOption._id}
             appointmentOption={appointmentOption}
+            setTreatment = {setTreatment}
           />
         ))}
+        {treatment && <Modal treatment={treatment} selectedDate={selectedDate} />}
       </div>
     </section>
   );
