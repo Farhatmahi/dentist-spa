@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
 
-const Modal = ({ treatment, setTreatment, selectedDate }) => {
+const Modal = ({ treatment, setTreatment, selectedDate, refetch }) => {
   const date = format(selectedDate, "PP");
   const { user } = useContext(AuthContext);
   const { name, slots } = treatment;
@@ -25,7 +25,7 @@ const Modal = ({ treatment, setTreatment, selectedDate }) => {
     };
     console.log(booking);
 
-    fetch("http://localhost:5001/booking", {
+    fetch("http://localhost:5002/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -37,8 +37,9 @@ const Modal = ({ treatment, setTreatment, selectedDate }) => {
         console.log(data);
         setTreatment(null); //the modal will auto off when the treatment is set to null.
         toast.success("Booking confirmed")
+        refetch()
       });
-      
+
   };
   return (
     <>
