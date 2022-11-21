@@ -3,12 +3,20 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
+import useToken from "../../useToken/useToken";
 
 const Login = () => {
   const [loginError, setLoginError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  const [loginUserEmail, setLoginUserEmail] = useState('');
+  console.log(loginUserEmail)
+
+  const [token] = useToken(loginUserEmail)
+  if(token){
+    navigate(from, { replace: true });
+  }
 
   const {
     register,
@@ -16,7 +24,7 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const { user, login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const handleLogin = (data) => {
     setLoginError("");
@@ -26,7 +34,7 @@ const Login = () => {
         const user = result.user;
         toast(`Welcome, ${user.displayName}!`);
         console.log(user);
-        navigate(from, { replace: true });
+        setLoginUserEmail(data.email)
       })
       .catch((err) => {
         console.log(err.message);

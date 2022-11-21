@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import useToken from "../../useToken/useToken";
 
 const Signup = () => {
   const {
@@ -13,6 +14,13 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const { createUser, updateUser } = useContext(AuthContext);
+  const [email, setEmail] = useState('')
+
+
+  const [token] = useToken(email)
+  if(token){
+    navigate('/')
+  }
 
   const handleSignUp = (data) => {
     // console.log(data);
@@ -26,7 +34,7 @@ const Signup = () => {
         };
         updateUser(userInfo)
           .then((result) => {
-            navigate("/");
+            saveUserToDB(data.name, data.email);
           })
           .catch((err) => {});
       })
@@ -34,6 +42,24 @@ const Signup = () => {
         console.log(err);
       });
   };
+
+  const saveUserToDB = (name, email) => {
+    const user = { name, email };
+    fetch("http://localhost:5002/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setEmail(email)
+      });
+  };
+
+
 
   return (
     <div className="flex flex-col justify-center items-center md:my-20 w-[90%] mx-auto">

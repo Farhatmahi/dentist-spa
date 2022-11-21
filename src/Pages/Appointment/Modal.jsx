@@ -34,12 +34,15 @@ const Modal = ({ treatment, setTreatment, selectedDate, refetch }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setTreatment(null); //the modal will auto off when the treatment is set to null.
-        toast.success("Booking confirmed")
-        refetch()
+        if (data.acknowledged) {
+          console.log(data);
+          setTreatment(null); //the modal will auto off when the treatment is set to null.
+          toast.success("Booking confirmed");
+          refetch();
+        } else {
+          toast.error(data.message);
+        }
       });
-
   };
   return (
     <>
@@ -73,14 +76,13 @@ const Modal = ({ treatment, setTreatment, selectedDate, refetch }) => {
               name="fullname"
               placeholder="Full name"
               className="input input-bordered w-full"
-              required
+              defaultValue={user?.displayName}
             />
             <input
               type="Phone number"
               name="phone"
               placeholder="Phone number"
               className="input input-bordered w-full"
-              required
             />
             <input
               type="email"
