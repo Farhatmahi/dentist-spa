@@ -4,16 +4,10 @@ import toast from "react-hot-toast";
 import ConfirmationModal from "../../../Shared/ConfirmationModal/ConfirmationModal";
 
 const ManageDoctors = () => {
-  //   const [doctors, setDoctors] = useState();
-  //   useEffect(() => {
-  //     fetch("http://localhost:5002/doctors")
-  //       .then((res) => res.json())
-  //       .then((data) => setDoctors(data));
-  //   }, []);
+
 
   const {
     data: doctors,
-    isLoading,
     refetch,
   } = useQuery({
     queryKey: ["doctors"],
@@ -43,7 +37,7 @@ const ManageDoctors = () => {
     // console.log(doctor)
     fetch(`http://localhost:5002/doctors/${doctor._id}`, {
         method : "DELETE",
-        header : {
+        headers : {
             authorization : `bearer ${localStorage.getItem('access-token')}`
         }
     }).then(res => res.json())

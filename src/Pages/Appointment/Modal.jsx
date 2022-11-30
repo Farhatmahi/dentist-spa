@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const Modal = ({ treatment, setTreatment, selectedDate, refetch }) => {
   const date = format(selectedDate, "PP");
   const { user } = useContext(AuthContext);
-  const { name, slots } = treatment;
+  const { name, slots, price } = treatment;
   const handleBooking = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -22,8 +22,8 @@ const Modal = ({ treatment, setTreatment, selectedDate, refetch }) => {
       fullname,
       phone,
       email,
+      price
     };
-    console.log(booking);
 
     fetch("http://localhost:5002/booking", {
       method: "POST",
@@ -34,6 +34,7 @@ const Modal = ({ treatment, setTreatment, selectedDate, refetch }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.acknowledged) {
           console.log(data);
           setTreatment(null); //the modal will auto off when the treatment is set to null.

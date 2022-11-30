@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 import { Dna } from "react-loader-spinner";
-import useAdmin from "../../UseAdmin/UseAdmin";
+
 import { AuthContext } from "../../context/AuthProvider";
+import useAdmin from "../../hook/UseAdmin/UseAdmin";
 
 const AdminRoute = ({ children }) => {
   const {user, loading} = useContext(AuthContext)
